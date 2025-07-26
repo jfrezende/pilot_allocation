@@ -8,7 +8,6 @@ import scipy.stats as ss
 import cvxpy as cp
 from collections import OrderedDict
 from itertools import islice
-import matplotlib.pyplot as plt
 import os.path
 
 # valores de M (APs), K (UEs) e P (Pilotos)
@@ -320,7 +319,7 @@ def ibasic ():
                         
                 if (counter[p_atual] < zeta):
                     piloto[first] = p_atual
-                    ++counter[p_atual]
+                    counter[p_atual] += 1
                     not_allocated=0
                     if piloto[first] not in usuarios_por_piloto:
                         usuarios_por_piloto[piloto[first]] = []
@@ -520,9 +519,9 @@ def escreve_arqs(rodada):
                 efile.write('\n')
                 ffile.write(str(f[(k,k_linha)]))
                 ffile.write('\n')
-    ffile.close
-    efile.close
-    rfile.close
+    ffile.close()
+    efile.close()
+    rfile.close()
     
 def calc_coeficientes (rodada):
 
