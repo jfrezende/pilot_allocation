@@ -16,7 +16,7 @@ K = int(sys.argv[2])
 P = int(sys.argv[3])
 
 # numero de instancias
-RODADAS = int(sys.argv[4])
+RUNS = int(sys.argv[4])
 
 def init_vars():
 
@@ -53,13 +53,13 @@ def init_vars():
     tau = P
 
     # vetores para armazenamento das taxas (taxas iguais para todos os usuarios em cada rodada)
-    ruk_maxkcut=np.zeros(RODADAS)
-    ruk_random=np.zeros(RODADAS)
-    ruk_greedy=np.zeros(RODADAS)
-    ruk_ibasic=np.zeros(RODADAS)
-    ruk_basic=np.zeros(RODADAS)
-    ruk_wgf=np.zeros(RODADAS)
-    ruk_wgfsb=np.zeros(RODADAS)
+    ruk_maxkcut=np.zeros(RUNS)
+    ruk_random=np.zeros(RUNS)
+    ruk_greedy=np.zeros(RUNS)
+    ruk_ibasic=np.zeros(RUNS)
+    ruk_basic=np.zeros(RUNS)
+    ruk_wgf=np.zeros(RUNS)
+    ruk_wgfsb=np.zeros(RUNS)
     
     # valores min e max de eta
     p_min = 0.0 * np.ones(K)  # minimum power at the UE k
@@ -606,14 +606,14 @@ def stats(ruk,algo):
     else:
         cdffile = open(cdffilename, 'w')
 
-    for r in range(RODADAS):
+    for r in range(RUNS):
         cdffile.write(str(ruk[r]))
         cdffile.write('\n')
         
     # sorted_ruk = np.sort(ruk)
-    # cdf = np.arange(RODADAS)+1
-    # for r in range(RODADAS):
-    #     line = [str(sorted_ruk[r]), str(cdf[r]/RODADAS)]
+    # cdf = np.arange(RUNS)+1
+    # for r in range(RUNS):
+    #     line = [str(sorted_ruk[r]), str(cdf[r]/RUNS)]
     #     cdffile.write("\t".join(line))
     #     cdffile.write("\n")
     cdffile.close
@@ -626,7 +626,7 @@ init_vars()
 
 algo = OrderedDict({"maxkcut": [maxkcut, ruk_maxkcut], "basic": [basic, ruk_basic]})
 
-for rodada in range(RODADAS):
+for rodada in range(RUNS):
 
     # reposiciona APs e UEs 
     calc_beta()
@@ -648,7 +648,7 @@ if os.path.isfile(resultsfilename):
 else:
     resf = open(resultsfilename, 'w')
 
-for rodada in range(RODADAS):
+for rodada in range(RUNS):
     line = [str(M) , str(K), str(P)]
     resf.write("\t".join(line))
     resf.write("\t")
